@@ -8,7 +8,6 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins="https://polynia.org", supports_credentials=True)
 app.wsgi_app = ProxyFix(app.wsgi_app)
 api = Api(app)
 parser = reqparse.RequestParser()
