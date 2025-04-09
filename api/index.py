@@ -4,10 +4,12 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 from werkzeug.middleware.proxy_fix import ProxyFix
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app, origins="*")
 app.wsgi_app = ProxyFix(app.wsgi_app)
 api = Api(app)
 parser = reqparse.RequestParser()
