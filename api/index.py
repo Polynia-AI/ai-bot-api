@@ -4,7 +4,6 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 from werkzeug.middleware.proxy_fix import ProxyFix
-from flask_cors import CORS
 
 load_dotenv()
 
@@ -47,12 +46,6 @@ class ChatBot(Resource):
             return response.choices[0].message.content
         except Exception as e:
             return {"Error 500":str(e)}
-    def options(self):
-        response = app.make_response('')
-        response.headers['Access-Control-Allow-Origin'] = 'https://polynia.org'
-        response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
-        response.headers['Access-Control-Allow-Headers'] = 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Authorization'
-        return response
 
 
 api.add_resource(ChatBot,"/chat")

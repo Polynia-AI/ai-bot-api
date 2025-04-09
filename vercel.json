@@ -4,6 +4,13 @@
       { "src": "api/index.py", "use": "@vercel/python" }
     ],
     "routes": [
-      { "src": "/chat", "methods": ["POST"], "dest": "api/index.py" }
+      { 
+        "src": "/chat", 
+        "methods": ["POST"], 
+        "dest": "api/index.py",
+        "headers":{
+            "Access-Control-Allow-Origin": "*"
+        }
+     }
     ]
   }
