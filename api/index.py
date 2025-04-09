@@ -3,10 +3,12 @@ from flask_restful import reqparse, Resource, Api
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 load_dotenv()
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app)
 api = Api(app)
 parser = reqparse.RequestParser()
 parser.add_argument("user_message", type=str, help="Message user wishes to send to chatbot")
@@ -47,5 +49,5 @@ class ChatBot(Resource):
 api.add_resource(ChatBot,"/chat")
 
 
-if __name__=="__main__":
-    app.run(debug=True)
+def handler(environ, start_response):
+    return app(environ, start_response)
